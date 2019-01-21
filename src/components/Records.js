@@ -3,6 +3,7 @@ import Record from './Record';
 //import $ from 'jquery';
 
 import * as RecordsApi from '../utils/RecordsApi';
+import RecordForm from './RecordForm';
 
 class Records extends Component {
 	constructor(){
@@ -29,15 +30,15 @@ class Records extends Component {
 
   render() {
 	const {error,isLoaded,records} = this.state;
+
+	let result;
 	if(error){
-		return <div>Error:{error.responseText}</div>
+		result = <div>Error:{error.responseText}</div>
 	}
 	if(!isLoaded){
-		return <div>Loading</div>
+		result = <div>Loading</div>
 	}
-    return (
-      <div>
-		<h2>Records</h2>
+    result = (
         <table className="table table-borderd">
 			<thead>
 			<tr>
@@ -50,8 +51,15 @@ class Records extends Component {
 				{records.map((record) => <Record {...record} key={record.id}/>)}
 			</tbody>
 		</table>
-      </div>
     );
+
+	return (
+	 <div>
+		<h2>Records</h2>
+		<RecordForm />
+	    {result}
+     </div>
+	);
   }
 }
 
